@@ -6,7 +6,7 @@ Esta es una prueba técnica para evaluar el desarrollo de aplicaciones móviles 
 
 El proyecto consiste en una aplicación para gestionar proyectos. Incluye funcionalidades para login, visualizar la pantalla de inicio, añadir y editar proyectos, y editar el perfil del usuario. Esta prueba técnica está diseñada para evaluar el desarrollo de interfaces y la integración de funcionalidades básicas en una aplicación móvi
 ## Características
--**Splash**: Iniciando aplicación con un splashScreen que contiene el logo solicitado.
+- **Splash**: Iniciando aplicación con un splashScreen que contiene el logo solicitado.
 - **Login**: Permite a los usuarios iniciar sesión en la aplicación..
 - **Home**: Muestra un resumen de los proyectos actuales y opciones de navegación.
 - **Nuevo Proyecto**: Muestra una pantalla que nos permite agregar un nuevo proyecto que irá dirigido al Home de la app.
