@@ -2,6 +2,7 @@ package com.example.pruebatcnica_lvlconsulting.View
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -23,6 +24,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.text.font.FontWeight
 import com.example.pruebatcnica_lvlconsulting.R
+import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
 
 
 @Composable
@@ -34,21 +36,40 @@ fun HomeView(navController: NavHostController) {
     ) {
         // Header
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween // Espacia los elementos entre sí
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.profile),
-                contentDescription = "Profile Picture",
-                modifier = Modifier.size(50.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Column {
-                Text(text = "Miguel Liberato", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text(text = "CEO LVL Consulting", fontSize = 14.sp, color = Color.Gray)
+            // Imagen de perfil y detalles
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.profile),
+                    contentDescription = "Profile Picture",
+                    modifier = Modifier.size(50.dp)
+                        .clickable{
+                            navController.navigate("profile")
+                        }
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Column {
+                    Text(text = "Miguel Liberato", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text(text = "CEO LVL Consulting", fontSize = 14.sp, color = Color.Gray)
+                }
+            }
+
+            // Icono de campana
+            IconButton(onClick = { /* Acción de notificación */ }) {
+                Icon(
+                    imageVector = Icons.Default.Notifications,
+                    contentDescription = "Notifications",
+                    tint = AppColor
+                )
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
 
         // Search Bar
         OutlinedTextField(
@@ -57,11 +78,25 @@ fun HomeView(navController: NavHostController) {
             label = { Text("Buscar en tableros") },
             modifier = Modifier.fillMaxWidth(),
             leadingIcon = {
-                Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon")
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Search Icon",
+                    tint = AppColor
+                )
+            },
+            trailingIcon = {
+                IconButton(onClick = { /* Acción de filtro */ }) {
+                    Icon(
+                        imageVector = Icons.Default.FilterList,
+                        contentDescription = "Filter Icon",
+                        tint = AppColor
+                    )
+                }
             },
             shape = RoundedCornerShape(20.dp)
         )
         Spacer(modifier = Modifier.height(16.dp))
+
 
         // Title
         Text(
@@ -88,6 +123,7 @@ fun HomeView(navController: NavHostController) {
                 Spacer(modifier = Modifier.height(16.dp))
                 TaskCard(title = "Pago de ventanilla PA-2", status = "FINALIZADO", icon = Icons.Default.CheckCircle)
             }
+
         }
     }
 }
