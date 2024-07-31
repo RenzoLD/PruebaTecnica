@@ -134,8 +134,10 @@ fun LoginView(navController: NavHostController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp)
+                .height(56.dp),
+            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
         ) {
-            Text(text = "Iniciar Sesión", color = MaterialTheme.colorScheme.onPrimary)
+            Text(text = "Iniciar Sesión")
         }
     }
 }

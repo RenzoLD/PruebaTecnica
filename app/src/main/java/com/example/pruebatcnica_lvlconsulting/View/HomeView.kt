@@ -66,7 +66,6 @@ fun HomeView(navController: NavHostController) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                // Imagen de perfil y detalles
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -90,8 +89,7 @@ fun HomeView(navController: NavHostController) {
                     }
                 }
 
-                // Icono de campana
-                IconButton(onClick = { /* Acción de notificación */ }) {
+                IconButton(onClick = {  }) {
                     Image(
                         painter = painterResource(id = R.drawable.notis),
                         contentDescription = "Notifications",
