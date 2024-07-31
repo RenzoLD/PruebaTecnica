@@ -28,4 +28,4 @@ El proyecto consiste en una aplicación para gestionar proyectos. Incluye funcio
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/usuario/repo.git
+   [git clone https://github.com/usuario/repo.git](https://github.com/RenzoLD/PruebaTecnica.git)
