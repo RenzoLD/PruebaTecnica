@@ -70,7 +70,9 @@ fun PerfilView(navController: NavHostController) {
                 .size(100.dp)
                 .clip(CircleShape)
                 .background(Color.Gray)
-                .clickable { /* Cambiar imagen */ },
+                .clickable {
+                    navController.navigate("edit")
+                },
             contentAlignment = Alignment.Center
         ) {
             Image(

@@ -3,6 +3,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import com.example.pruebatcnica_lvlconsulting.View.EditView
 import com.example.pruebatcnica_lvlconsulting.View.SearchView
 import com.example.pruebatcnica_lvlconsulting.View.HomeView
 import com.example.pruebatcnica_lvlconsulting.View.LoginView
@@ -20,6 +21,7 @@ fun NavGraph() {
         composable("new_project") { NewProjectView(navController) }
         composable("search") { SearchView(navController) }
         composable("profile") { PerfilView(navController) }
+        composable("edit") { EditView(navController) }
     }
 }
 

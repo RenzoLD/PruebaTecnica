@@ -62,6 +62,7 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation (libs.androidx.navigation.compose.v271)
     implementation ("androidx.compose.material:material-icons-extended:1.6.8")
+    implementation("io.coil-kt:coil-compose:2.6.0")
     implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
