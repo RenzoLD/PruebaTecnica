@@ -1,4 +1,4 @@
-package com.example.pruebatcnica_lvlconsulting.ui.theme
+    package com.example.pruebatcnica_lvlconsulting.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -12,13 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
+    primary = AppColor,
     secondary = PurpleGrey80,
     tertiary = Pink80
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = AppColor,
     secondary = PurpleGrey40,
     tertiary = Pink40
 
