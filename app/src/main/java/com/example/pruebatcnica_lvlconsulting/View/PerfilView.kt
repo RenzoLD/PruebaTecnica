@@ -83,17 +83,24 @@ fun PerfilView(navController: NavHostController) {
                     .fillMaxSize()
                     .clip(CircleShape) // Opcional: Si quieres la imagen en forma de círculo
             )
-
             // Icono de editar
-            Icon(
-                painter = painterResource(id = R.drawable.screen),
-                contentDescription = "Cambiar imagen",
-                tint = Color.White,
+            Box(
                 modifier = Modifier
                     .size(24.dp)
-                    .align(Alignment.BottomEnd) // Alinea el ícono en la parte inferior derecha
-                    .padding(8.dp) // Añade padding para que no quede pegado al borde
-            )
+                    .align(Alignment.BottomEnd) // Alinea al final en la parte inferior
+                    .padding(8.dp)
+                    .background(Color.Black.copy(alpha = 0.5f), CircleShape) // Fondo semitransparente
+                    .clickable {  }
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ed),
+                    contentDescription = "Cambiar imagen",
+                    tint = Color.White,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(16.dp) // Tamaño del ícono
+                )
+            }
         }
         Spacer(modifier = Modifier.height(16.dp))
 

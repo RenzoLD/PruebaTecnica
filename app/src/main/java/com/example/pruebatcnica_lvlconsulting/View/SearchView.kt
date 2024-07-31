@@ -19,10 +19,13 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
 
 
 @Composable
@@ -36,87 +39,123 @@ fun SearchView(onDismiss: () -> Unit) {
     var fechaFinalizacion by remember { mutableStateOf(TextFieldValue("")) }
 
     Dialog(onDismissRequest = onDismiss) {
-        Card(
+        BoxWithConstraints(
             modifier = Modifier
-                .fillMaxWidth(0.9f)
-                .padding(16.dp),
-            shape = RoundedCornerShape(12.dp)
+                .fillMaxSize()
+                .padding(vertical = 16.dp)
         ) {
-            Column(
+            val maxWidth = maxWidth
+
+            Card(
                 modifier = Modifier
-                    .background(Color.White)
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                    .width(maxWidth)
+                    .wrapContentHeight()
+                    .align(Alignment.Center),
+                shape = RoundedCornerShape(12.dp)
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
+                Column(
+                    modifier = Modifier
+                        .background(Color.White)
+                        .padding(16.dp),
                 ) {
-                    Text(text = "Búsqueda avanzada", fontSize = 20.sp)
-                    IconButton(onClick = onDismiss) {
-                        Icon(Icons.Default.Close, contentDescription = "Close")
-                    }
-                }
-                OutlinedTextField(
-                    value = codigoProyecto,
-                    onValueChange = { codigoProyecto = it },
-                    label = { Text(text = "Código del proyecto") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                OutlinedTextField(
-                    value = nombre,
-                    onValueChange = { nombre = it },
-                    label = { Text(text = "Nombre") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                OutlinedTextField(
-                    value = estado,
-                    onValueChange = { estado = it },
-                    label = { Text(text = "Estado") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                OutlinedTextField(
-                    value = categoria,
-                    onValueChange = { categoria = it },
-                    label = { Text(text = "Categoría") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                OutlinedTextField(
-                    value = iconoProyecto,
-                    onValueChange = { iconoProyecto = it },
-                    label = { Text(text = "Icono del proyecto") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                OutlinedTextField(
-                    value = fechaInicio,
-                    onValueChange = { fechaInicio = it },
-                    label = { Text(text = "Fecha de inicio") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                OutlinedTextField(
-                    value = fechaFinalizacion,
-                    onValueChange = { fechaFinalizacion = it },
-                    label = { Text(text = "Fecha de finalización") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Button(
-                        onClick = { /* Buscar */ },
-                        modifier = Modifier.weight(1f)
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(text = "Buscar")
+                        Text(
+                            text = "Búsqueda avanzada",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        IconButton(onClick = onDismiss) {
+                            Icon(Icons.Default.Close, contentDescription = "Close", tint = AppColor)
+                        }
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Button(
-                        onClick = { /* Limpiar */ },
-                        modifier = Modifier.weight(1f)
+                    OutlinedTextField(
+                        value = codigoProyecto,
+                        onValueChange = { codigoProyecto = it },
+                        label = { Text(text = "Código del proyecto") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    OutlinedTextField(
+                        value = nombre,
+                        onValueChange = { nombre = it },
+                        label = { Text(text = "Nombre") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp)
+
+                    )
+                    OutlinedTextField(
+                        value = estado,
+                        onValueChange = { estado = it },
+                        label = { Text(text = "Estado") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    OutlinedTextField(
+                        value = categoria,
+                        onValueChange = { categoria = it },
+                        label = { Text(text = "Categoría") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    OutlinedTextField(
+                        value = iconoProyecto,
+                        onValueChange = { iconoProyecto = it },
+                        label = { Text(text = "Icono del proyecto") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    OutlinedTextField(
+                        value = fechaInicio,
+                        onValueChange = { fechaInicio = it },
+                        label = { Text(text = "Fecha de inicio") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    OutlinedTextField(
+                        value = fechaFinalizacion,
+                        onValueChange = { fechaFinalizacion = it },
+                        label = { Text(text = "Fecha de finalización") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp)
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(8.dp) // Espacio entre los botones
                     ) {
-                        Text(text = "Limpiar")
+                        Button(
+                            onClick = { /* Buscar */ },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(12.dp)), // Bordes redondeados
+                            colors = ButtonDefaults.buttonColors(containerColor = AppColor) // Color del botón
+                        ) {
+                            Text(
+                                text = "Buscar",
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold
+                            ) // Estilo del texto
+                        }
+                        Button(
+                            onClick = { /* Limpiar */ },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(12.dp)), // Bordes redondeados
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White) // Color del botón
+                        ) {
+                            Text(
+                                text = "Limpiar",
+                                color = AppColor,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                 }
             }

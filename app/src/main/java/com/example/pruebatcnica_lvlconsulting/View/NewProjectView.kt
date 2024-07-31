@@ -1,6 +1,8 @@
 package com.example.pruebatcnica_lvlconsulting.View
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
@@ -10,16 +12,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Autorenew
+import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.CloudUpload
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -29,11 +39,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.pruebatcnica_lvlconsulting.R
+import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,10 +60,10 @@ fun NewProjectView(navController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Nuevo proyecto") },
+                title = { Text(text = "Nuevo proyecto", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = AppColor)
                     }
                 }
             )
@@ -64,51 +76,103 @@ fun NewProjectView(navController: NavHostController) {
                 .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Box(
-                modifier = Modifier
-                    .size(64.dp)
-                    .clip(CircleShape)
-                    .background(Color.LightGray)
-                    .clickable { /* Cambiar icono */ },
-                contentAlignment = Alignment.Center
+            // Row to align icon and button horizontally
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.screen),
-                    contentDescription = "Icono del proyecto"
-                )
-            }
-            TextButton(onClick = { /* Cambiar icono aleatorio */ }) {
-                Text(text = "Cambiar icono aleatorio")
-            }
+                // Box for project icon
+                Box(
+                    modifier = Modifier
+                        .size(64.dp)
+                        .clip(CircleShape)
+                        .background(Color.LightGray)
+                        .clickable { /* Cambiar icono */ },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(64.dp)
+                            .border(1.dp, Color.White) // Add border around the box
+                            .clip(RoundedCornerShape(4.dp)) // Optional: Round the corners
+                            .background(Color.White), // Set the background color if needed
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.cloucomp),
+                            contentDescription = "Icono del proyecto",
+                        )
+                    }
+                }
+
+                // TextButton to change icon
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp), // Space between text and icon
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically) // Align to center vertically
+                        .padding(start = 16.dp) // Add padding for spacing
+                ) {
+                    Text(text = "Cambiar icono aleatorio",
+                        color = Color.Gray,
+                        fontSize = 14.sp
+                        )
+                    Icon(
+                        imageVector = Icons.Filled.Autorenew,
+                        contentDescription = "Refresh",
+                        tint = AppColor,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+            }            // Text fields
             OutlinedTextField(
                 value = nombreProyecto,
                 onValueChange = { nombreProyecto = it },
                 label = { Text(text = "Nombre del proyecto") },
-                modifier = Modifier.fillMaxWidth()
-            )
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp)
+                )
             OutlinedTextField(
                 value = descripcion,
                 onValueChange = { descripcion = it },
                 label = { Text(text = "Descripción") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp)
             )
             DropdownMenuDemo(
                 selectedOption = estadoProyecto,
-                onOptionSelected = { estadoProyecto = it })
+                onOptionSelected = { estadoProyecto = it }
+            )
             OutlinedTextField(
                 value = fechaInicio,
                 onValueChange = { fechaInicio = it },
                 label = { Text(text = "Fecha de inicio") },
-                modifier = Modifier.fillMaxWidth()
+                trailingIcon = {
+                    Icon(Icons.Filled.CalendarToday, contentDescription = "Calendario", tint = AppColor)
+                },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp)
             )
             OutlinedTextField(
                 value = fechaFinalizacion,
                 onValueChange = { fechaFinalizacion = it },
                 label = { Text(text = "Fecha de finalización") },
-                modifier = Modifier.fillMaxWidth()
+                trailingIcon = {
+                    Icon(Icons.Filled.CalendarToday, contentDescription = "Calendario", tint = AppColor)
+                },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp)
             )
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = "¿Compartir con otros miembros?")
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween, // Distribute space evenly
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "¿Compartir con otros miembros?",
+                    fontSize = 16.sp,
+                    color = Color.Gray,
+                    fontWeight = FontWeight.Bold
+                    )
                 Switch(
                     checked = compartirConOtros,
                     onCheckedChange = { compartirConOtros = it }
@@ -125,7 +189,6 @@ fun NewProjectView(navController: NavHostController) {
     }
 }
 
-
 @Composable
 fun DropdownMenuDemo(selectedOption: String, onOptionSelected: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
@@ -137,15 +200,33 @@ fun DropdownMenuDemo(selectedOption: String, onOptionSelected: (String) -> Unit)
             onValueChange = {},
             label = { Text(text = "Estado del proyecto") },
             readOnly = true,
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.KeyboardArrowDown,
+                    contentDescription = "Mostrar opciones",
+                    tint = AppColor,
+                    modifier = Modifier.clickable { expanded = !expanded }
+                )
+            },
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { expanded = true }
+                .clickable { expanded = true },
+            shape = RoundedCornerShape(20.dp)
         )
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
             modifier = Modifier.fillMaxWidth()
         ) {
+            options.forEach { option ->
+                DropdownMenuItem(
+                    onClick = {
+                        onOptionSelected(option)
+                        expanded = false
+                    },
+                    text = { Text(text = option) }
+                )
+            }
         }
     }
 }

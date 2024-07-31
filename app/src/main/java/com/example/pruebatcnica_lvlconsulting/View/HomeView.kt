@@ -92,10 +92,10 @@ fun HomeView(navController: NavHostController) {
 
                 // Icono de campana
                 IconButton(onClick = { /* Acción de notificación */ }) {
-                    Icon(
-                        imageVector = Icons.Default.Notifications,
+                    Image(
+                        painter = painterResource(id = R.drawable.notis),
                         contentDescription = "Notifications",
-                        tint = AppColor
+                        modifier = Modifier.size(20.dp)
                     )
                 }
             }
@@ -149,7 +149,7 @@ fun HomeView(navController: NavHostController) {
                         title = "Proyecto de App",
                         status = "ATA-1",
                         state = "PLANIFICACIÓN",
-                        iconRes = R.drawable.screen
+                        iconRes = R.drawable.folder
                     )
                 }
                 item {
@@ -157,7 +157,7 @@ fun HomeView(navController: NavHostController) {
                         title = "Diseño de RR.SS.",
                         status = "PA-21",
                         state = "EN CURSO",
-                        iconRes = R.drawable.screen
+                        iconRes = R.drawable.text
                     )
                 }
                 item {
@@ -165,7 +165,7 @@ fun HomeView(navController: NavHostController) {
                         title = "Programación de...",
                         status = "PA-2",
                         state = "EN REVISIÓN",
-                        iconRes = R.drawable.screen
+                        iconRes = R.drawable.briefcase
                     )
                 }
                 item {
@@ -173,7 +173,7 @@ fun HomeView(navController: NavHostController) {
                         title = "Control de calidad",
                         status = "ATA-1",
                         state = "FINALIZADO",
-                        iconRes = R.drawable.screen
+                        iconRes = R.drawable.adversiting
                     )
                 }
                 item {
@@ -181,7 +181,7 @@ fun HomeView(navController: NavHostController) {
                         title = "Notificaciones de...",
                         status = "ATA-1",
                         state = "PLANIFICACIÓN",
-                        iconRes = R.drawable.screen
+                        iconRes = R.drawable.email
                     )
                 }
                 item {
@@ -189,7 +189,7 @@ fun HomeView(navController: NavHostController) {
                         title = "Pago de ventanilla",
                         status = "PA-2",
                         state = "EN REVISIÓN",
-                        iconRes = R.drawable.screen
+                        iconRes = R.drawable.calendar
                     )
                 }
             }
@@ -220,26 +220,26 @@ fun TaskCard(title: String, status: String, state: String, iconRes: Int) {
                 painter = painterResource(id = iconRes),
                 contentDescription = null,
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
+                    .align(Alignment.Start)
                     .size(40.dp) // Tamaño de la imagen
                     .clip(RoundedCornerShape(10.dp))
             )
             Spacer(modifier = Modifier.height(4.dp)) // Espacio entre la imagen y el título
             // Texto de la tarjeta
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.Start
             ) {
                 Text(
                     text = title,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Start
                 )
                 Text(
                     text = status,
                     fontSize = 12.sp,
                     color = Color.Gray,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Start
                 )
                 Text(
                     text = state,
