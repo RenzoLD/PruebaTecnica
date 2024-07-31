@@ -3,7 +3,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
-import com.example.pruebatcnica_lvlconsulting.View.FragmentView
+import com.example.pruebatcnica_lvlconsulting.View.SearchView
 import com.example.pruebatcnica_lvlconsulting.View.HomeView
 import com.example.pruebatcnica_lvlconsulting.View.LoginView
 import com.example.pruebatcnica_lvlconsulting.View.NewProjectView
@@ -18,7 +18,7 @@ fun NavGraph() {
         composable("login") { LoginView(navController) }
         composable("home") { HomeView(navController) }
         composable("new_project") { NewProjectView(navController) }
-        composable("search") { FragmentView(navController) }
+        composable("search") { SearchView(navController) }
         composable("profile") { PerfilView(navController) }
     }
 }

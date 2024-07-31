@@ -29,101 +29,137 @@ import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
 
 @Composable
 fun HomeView(navController: NavHostController) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        // Header
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween // Espacia los elementos entre sí
-        ) {
-            // Imagen de perfil y detalles
-            Row(
-                verticalAlignment = Alignment.CenterVertically
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate("new_project")
+                },
+                containerColor = AppColor,
+                contentColor = Color.White
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.profile),
-                    contentDescription = "Profile Picture",
-                    modifier = Modifier.size(50.dp)
-                        .clickable{
-                            navController.navigate("profile")
-                        }
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Column {
-                    Text(text = "Miguel Liberato", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                    Text(text = "CEO LVL Consulting", fontSize = 14.sp, color = Color.Gray)
-                }
-            }
-
-            // Icono de campana
-            IconButton(onClick = { /* Acción de notificación */ }) {
-                Icon(
-                    imageVector = Icons.Default.Notifications,
-                    contentDescription = "Notifications",
-                    tint = AppColor
-                )
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Agregar")
             }
         }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .padding(innerPadding) // Añade el padding proporcionado por Scaffold
+        ) {
+            // Header
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween // Espacia los elementos entre sí
+            ) {
+                // Imagen de perfil y detalles
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.profile),
+                        contentDescription = "Profile Picture",
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clickable {
+                                navController.navigate("profile")
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column {
+                        Text(
+                            text = "Miguel Liberato",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(text = "CEO LVL Consulting", fontSize = 14.sp, color = Color.Gray)
+                    }
+                }
 
-        // Search Bar
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = { Text("Buscar en tableros") },
-            modifier = Modifier.fillMaxWidth(),
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search Icon",
-                    tint = AppColor
-                )
-            },
-            trailingIcon = {
-                IconButton(onClick = { /* Acción de filtro */ }) {
+                // Icono de campana
+                IconButton(onClick = { /* Acción de notificación */ }) {
                     Icon(
-                        imageVector = Icons.Default.FilterList,
-                        contentDescription = "Filter Icon",
+                        imageVector = Icons.Default.Notifications,
+                        contentDescription = "Notifications",
                         tint = AppColor
                     )
                 }
-            },
-            shape = RoundedCornerShape(20.dp)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-
-        // Title
-        Text(
-            text = "Tableros",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Cards
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                TaskCard(title = "Proyecto de App", status = "ATA-1", icon = Icons.Default.Folder)
-                Spacer(modifier = Modifier.height(16.dp))
-                TaskCard(title = "Notificaciones ATA-1", status = "PLANIFICACIÓN", icon = Icons.Default.Notifications)
-            }
-            Spacer(modifier = Modifier.width(16.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                TaskCard(title = "Control de calidad", status = "EN CURSO", icon = Icons.Default.Warning)
-                Spacer(modifier = Modifier.height(16.dp))
-                TaskCard(title = "Pago de ventanilla PA-2", status = "FINALIZADO", icon = Icons.Default.CheckCircle)
             }
 
+            // Search Bar
+            OutlinedTextField(
+                value = "",
+                onValueChange = {},
+                label = { Text("Buscar en tableros") },
+                modifier = Modifier.fillMaxWidth(),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search Icon",
+                        tint = AppColor
+                    )
+                },
+                trailingIcon = {
+                    IconButton(onClick = {
+                        navController.navigate("search")
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.FilterList,
+                            contentDescription = "Filter Icon",
+                            tint = AppColor
+                        )
+                    }
+                },
+                shape = RoundedCornerShape(20.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Title
+            Text(
+                text = "Tableros",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Cards
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    TaskCard(
+                        title = "Proyecto de App",
+                        status = "ATA-1",
+                        icon = Icons.Default.Folder
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    TaskCard(
+                        title = "Notificaciones ATA-1",
+                        status = "PLANIFICACIÓN",
+                        icon = Icons.Default.Notifications
+                    )
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    TaskCard(
+                        title = "Control de calidad",
+                        status = "EN CURSO",
+                        icon = Icons.Default.Warning
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    TaskCard(
+                        title = "Pago de ventanilla PA-2",
+                        status = "FINALIZADO",
+                        icon = Icons.Default.CheckCircle
+                    )
+                }
+            }
         }
     }
 }

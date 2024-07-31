@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.pruebatcnica_lvlconsulting.Navigation.NavGraph
-import com.example.pruebatcnica_lvlconsulting.View.FragmentView
+import com.example.pruebatcnica_lvlconsulting.View.SearchView
 import com.example.pruebatcnica_lvlconsulting.View.HomeView
 import com.example.pruebatcnica_lvlconsulting.View.LoginView
 import com.example.pruebatcnica_lvlconsulting.View.NewProjectView
