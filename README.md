@@ -27,5 +27,6 @@ El proyecto consiste en una aplicación para gestionar proyectos. Incluye funcio
 ## Instalación
 
 1. Clona el repositorio:
-   ```bash https://github.com/RenzoLD/PruebaTecnica.git
+   ```bash
+   git clone https://github.com/RenzoLD/PruebaTecnica
 
