@@ -9,17 +9,19 @@ import com.example.pruebatcnica_lvlconsulting.View.HomeView
 import com.example.pruebatcnica_lvlconsulting.View.LoginView
 import com.example.pruebatcnica_lvlconsulting.View.NewProjectView
 import com.example.pruebatcnica_lvlconsulting.View.PerfilView
-import com.example.pruebatcnica_lvlconsulting.View.SplashScreen
+import com.example.pruebatcnica_lvlconsulting.View.SplashView
 
 @Composable
 fun NavGraph() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "splash") {
-        composable("splash") { SplashScreen(navController) }
+        composable("splash") { SplashView(navController) }
         composable("login") { LoginView(navController) }
         composable("home") { HomeView(navController) }
         composable("new_project") { NewProjectView(navController) }
-        composable("search") { SearchView(navController) }
+        composable("search") {
+            SearchView(onDismiss = { navController.popBackStack() })
+        }
         composable("profile") { PerfilView(navController) }
         composable("edit") { EditView(navController) }
     }

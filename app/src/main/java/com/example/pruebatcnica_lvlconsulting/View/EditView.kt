@@ -10,6 +10,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -31,94 +32,67 @@ import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import coil.compose.rememberImagePainter
+import com.example.pruebatcnica_lvlconsulting.R
 
 @Composable
 fun EditView(navController: NavHostController) {
-    var profileImageUri by remember { mutableStateOf<Uri?>(null) }
-    val context = LocalContext.current
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let { profileImageUri = it }
-    }
-
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .background(Color.Black),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxHeight()
+        ) {
+            Spacer(modifier = Modifier.height(48.dp)) // Espacio superior
+
+            // Imagen circular
+            Image(
+                painter = painterResource(id = R.drawable.profile),
+                contentDescription = "Profile Photo",
+                modifier = Modifier
+                    .size(300.dp)
+                    .clip(CircleShape)
+                    .border(2.dp, Color.Black, CircleShape)
+            )
+
+            // Espaciador para centrar la imagen y los botones
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Botones de acciones
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                ActionButton(icon = Icons.Default.Edit, text = "Editar", onClick = { /* Acción de editar */ })
+                ActionButton(icon = Icons.Default.PhotoCamera, text = "Hacer foto", onClick = { /* Acción de hacer foto */ })
+                ActionButton(icon = Icons.Default.PhotoLibrary, text = "Galería", onClick = { /* Acción de galería */ })
+                ActionButton(icon = Icons.Default.Delete, text = "Eliminar", onClick = { /* Acción de eliminar */ })
+            }
+        }
+    }
+}
+
+@Composable
+fun ActionButton(icon: ImageVector, text: String, onClick: () -> Unit) {
+    Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            modifier = Modifier
-                .size(150.dp)
-                .clip(CircleShape)
-                .background(Color.Gray)
-                .clickable {
-                    // Lógica para cambiar la imagen
-                },
-            contentAlignment = Alignment.Center
-        ) {
-            profileImageUri?.let {
-                Image(
-                    painter = rememberImagePainter(it),
-                    contentDescription = "Profile Image",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
-                )
-            } ?: run {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = "Default Profile",
-                    tint = Color.White,
-                    modifier = Modifier.size(120.dp)
-                )
-            }
+        IconButton(onClick = onClick) {
+            Icon(imageVector = icon, contentDescription = text, tint = Color.White)
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Fila de íconos
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            IconButton(onClick = { /* Editar imagen */ }) {
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = "Editar",
-                    tint = Color.Black
-                )
-            }
-            IconButton(onClick = {
-            }) {
-                Icon(
-                    imageVector = Icons.Default.CameraAlt,
-                    contentDescription = "Tomar Foto",
-                    tint = Color.Black
-                )
-            }
-            IconButton(onClick = {
-                // Seleccionar de la galería
-                launcher.launch("image/*")
-            }) {
-                Icon(
-                    imageVector = Icons.Default.PhotoLibrary,
-                    contentDescription = "Galería",
-                    tint = Color.Black
-                )
-            }
-            IconButton(onClick = {
-                // Eliminar imagen
-                profileImageUri = null
-            }) {
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = "Eliminar",
-                    tint = Color.Black
-                )
-            }
-        }
+        Text(text = text, color = Color.White, fontSize = 12.sp)
     }
 }

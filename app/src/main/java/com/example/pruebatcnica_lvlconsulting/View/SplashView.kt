@@ -17,7 +17,7 @@ import com.example.pruebatcnica_lvlconsulting.R
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navController: NavHostController) {
+fun SplashView(navController: NavHostController) {
     LaunchedEffect(Unit) {
         delay(2000)
         navController.navigate("login") {

@@ -4,6 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.material3.Icon
@@ -22,13 +25,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import com.example.pruebatcnica_lvlconsulting.R
 import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
 
 
 @Composable
 fun HomeView(navController: NavHostController) {
+    var showSearchDialog by remember { mutableStateOf(false) }
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -46,7 +56,7 @@ fun HomeView(navController: NavHostController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-                .padding(innerPadding) // Añade el padding proporcionado por Scaffold
+                .padding(innerPadding)
         ) {
             // Header
             Row(
@@ -54,7 +64,7 @@ fun HomeView(navController: NavHostController) {
                     .fillMaxWidth()
                     .padding(vertical = 16.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween // Espacia los elementos entre sí
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 // Imagen de perfil y detalles
                 Row(
@@ -105,7 +115,7 @@ fun HomeView(navController: NavHostController) {
                 },
                 trailingIcon = {
                     IconButton(onClick = {
-                        navController.navigate("search")
+                        showSearchDialog = true
                     }) {
                         Icon(
                             imageVector = Icons.Default.FilterList,
@@ -128,60 +138,122 @@ fun HomeView(navController: NavHostController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             // Cards
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Column(modifier = Modifier.weight(1f)) {
+                item {
                     TaskCard(
                         title = "Proyecto de App",
                         status = "ATA-1",
-                        icon = Icons.Default.Folder
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    TaskCard(
-                        title = "Notificaciones ATA-1",
-                        status = "PLANIFICACIÓN",
-                        icon = Icons.Default.Notifications
+                        state = "PLANIFICACIÓN",
+                        iconRes = R.drawable.screen
                     )
                 }
-                Spacer(modifier = Modifier.width(16.dp))
-                Column(modifier = Modifier.weight(1f)) {
+                item {
+                    TaskCard(
+                        title = "Diseño de RR.SS.",
+                        status = "PA-21",
+                        state = "EN CURSO",
+                        iconRes = R.drawable.screen
+                    )
+                }
+                item {
+                    TaskCard(
+                        title = "Programación de...",
+                        status = "PA-2",
+                        state = "EN REVISIÓN",
+                        iconRes = R.drawable.screen
+                    )
+                }
+                item {
                     TaskCard(
                         title = "Control de calidad",
-                        status = "EN CURSO",
-                        icon = Icons.Default.Warning
+                        status = "ATA-1",
+                        state = "FINALIZADO",
+                        iconRes = R.drawable.screen
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+                }
+                item {
                     TaskCard(
-                        title = "Pago de ventanilla PA-2",
-                        status = "FINALIZADO",
-                        icon = Icons.Default.CheckCircle
+                        title = "Notificaciones de...",
+                        status = "ATA-1",
+                        state = "PLANIFICACIÓN",
+                        iconRes = R.drawable.screen
+                    )
+                }
+                item {
+                    TaskCard(
+                        title = "Pago de ventanilla",
+                        status = "PA-2",
+                        state = "EN REVISIÓN",
+                        iconRes = R.drawable.screen
                     )
                 }
             }
         }
     }
+
+    if (showSearchDialog) {
+        SearchView(onDismiss = { showSearchDialog = false })
+    }
 }
 
 @Composable
-fun TaskCard(title: String, status: String, icon: ImageVector) {
+fun TaskCard(title: String, status: String, state: String, iconRes: Int) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .width(180.dp)
+            .padding(8.dp),
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Row(
+        Column(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(8.dp)
+                .fillMaxWidth()
         ) {
-            Icon(imageVector = icon, contentDescription = null, modifier = Modifier.size(40.dp))
-            Spacer(modifier = Modifier.width(16.dp))
-            Column {
-                Text(text = title, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                Text(text = status, fontSize = 14.sp, color = Color.Gray)
+            // Imagen en la parte superior
+            Image(
+                painter = painterResource(id = iconRes),
+                contentDescription = null,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .size(40.dp) // Tamaño de la imagen
+                    .clip(RoundedCornerShape(10.dp))
+            )
+            Spacer(modifier = Modifier.height(4.dp)) // Espacio entre la imagen y el título
+            // Texto de la tarjeta
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = title,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = status,
+                    fontSize = 12.sp,
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = state,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = when (state) {
+                        "PLANIFICACIÓN" -> Color.Gray
+                        "EN CURSO" -> Color.Yellow
+                        "EN REVISIÓN" -> Color.Green
+                        "FINALIZADO" -> Color.Blue
+                        else -> Color.Gray
+                    },
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }
