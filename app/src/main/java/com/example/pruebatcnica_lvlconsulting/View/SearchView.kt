@@ -136,7 +136,7 @@ fun SearchView(onDismiss: () -> Unit) {
                             onClick = { /* Buscar */ },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clip(RoundedCornerShape(12.dp)), // Bordes redondeados
+                                .clip(RoundedCornerShape(12.dp)),
                             colors = ButtonDefaults.buttonColors(containerColor = AppColor)
                         ) {
                             Text(
@@ -149,7 +149,7 @@ fun SearchView(onDismiss: () -> Unit) {
                             onClick = { /* Limpiar */ },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clip(RoundedCornerShape(12.dp)), // Bordes redondeados
+                                .clip(RoundedCornerShape(12.dp)),
                             colors = ButtonDefaults.buttonColors(containerColor = Color.White)
                         ) {
                             Text(
