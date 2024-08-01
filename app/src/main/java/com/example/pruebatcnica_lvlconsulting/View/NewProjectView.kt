@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -35,6 +36,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
@@ -44,6 +46,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.example.pruebatcnica_lvlconsulting.DropDown.DropdownMenuDemo
 import com.example.pruebatcnica_lvlconsulting.R
 import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
 import com.example.pruebatcnica_lvlconsulting.ui.theme.fondoColor
@@ -59,6 +62,7 @@ fun NewProjectView(navController: NavHostController) {
     var compartirConOtros by remember { mutableStateOf(false) }
 
     Scaffold(
+        containerColor = fondoColor,
         topBar = {
             TopAppBar(
                 title = { Text(text = "Nuevo proyecto", fontWeight = FontWeight.Bold) },
@@ -66,7 +70,8 @@ fun NewProjectView(navController: NavHostController) {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = AppColor)
                     }
-                }
+                },
+                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = fondoColor)
             )
         }
     ) { innerPadding ->
@@ -79,45 +84,60 @@ fun NewProjectView(navController: NavHostController) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Box(
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
-                        .size(64.dp)
-                        .clip(CircleShape)
-                        .background(Color.LightGray)
-                        .clickable {  },
-                    contentAlignment = Alignment.Center
+                        .weight(1f)
+                        .padding(end = 16.dp)
                 ) {
+                    Text(
+                        text = "Icono del proyecto",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black,
+                        modifier = Modifier
+                            .padding(bottom = 4.dp)
+                    )
                     Box(
                         modifier = Modifier
                             .size(64.dp)
-                            .border(1.dp, Color.White) // Add border around the box
-                            .clip(RoundedCornerShape(4.dp)) // Optional: Round the corners
-                            .background(Color.White), // Set the background color if needed
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(Color.White)
+                            .clickable {  },
                         contentAlignment = Alignment.Center
                     ) {
-
-                        Image(
-                            painter = painterResource(id = R.drawable.cloucomp),
-                            contentDescription = "Icono del proyecto",
-                        )
+                        Box(
+                            modifier = Modifier
+                                .size(60.dp)
+                                .border(1.dp, Color.White)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(Color.White),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.cloucomp),
+                                contentDescription = "Icono del proyecto",
+                            )
+                        }
                     }
                 }
 
-                // TextButton to change icon
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(4.dp), // Space between text and icon
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
                     modifier = Modifier
-                        .align(Alignment.CenterVertically) // Align to center vertically
-                        .padding(start = 16.dp) // Add padding for spacing
+                        .align(Alignment.CenterVertically)
+                        .padding(start = 16.dp)
                 ) {
                     Text(
                         text = "Cambiar icono aleatorio",
                         color = Color.Gray,
-                        fontSize = 14.sp
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium
                     )
                     Icon(
                         imageVector = Icons.Filled.Autorenew,
@@ -126,7 +146,8 @@ fun NewProjectView(navController: NavHostController) {
                         modifier = Modifier.size(24.dp)
                     )
                 }
-            }            // Text fields
+            }
+
             OutlinedTextField(
                 value = nombreProyecto,
                 onValueChange = { nombreProyecto = it },
@@ -175,7 +196,7 @@ fun NewProjectView(navController: NavHostController) {
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween, // Distribute space evenly
+                horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
@@ -191,51 +212,24 @@ fun NewProjectView(navController: NavHostController) {
             }
             Spacer(modifier = Modifier.height(16.dp))
             Button(
-                onClick = { /* Crear proyecto */ },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(text = "Crear proyecto")
-            }
-        }
-    }
-}
-
-@Composable
-fun DropdownMenuDemo(selectedOption: String, onOptionSelected: (String) -> Unit) {
-    var expanded by remember { mutableStateOf(false) }
-    val options = listOf("Opción 1", "Opción 2", "Opción 3")
-
-    Box {
-        OutlinedTextField(
-            value = selectedOption,
-            onValueChange = {},
-            label = { Text(text = "Estado del proyecto") },
-            readOnly = true,
-            trailingIcon = {
-                Icon(
-                    imageVector = Icons.Filled.KeyboardArrowDown,
-                    contentDescription = "Mostrar opciones",
-                    tint = AppColor,
-                    modifier = Modifier.clickable { expanded = !expanded }
+                onClick = {
+                    navController.navigate("home")
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = AppColor),
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                contentPadding = PaddingValues(
+                    horizontal = 12.dp,
+                    vertical = 12.dp
                 )
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { expanded = true },
-            shape = RoundedCornerShape(20.dp)
-        )
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            options.forEach { option ->
-                DropdownMenuItem(
-                    onClick = {
-                        onOptionSelected(option)
-                        expanded = false
-                    },
-                    text = { Text(text = option) }
+            ) {
+                Text(
+                    text = "Crear proyecto",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }

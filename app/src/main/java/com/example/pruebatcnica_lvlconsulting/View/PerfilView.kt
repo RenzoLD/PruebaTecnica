@@ -48,7 +48,7 @@ fun PerfilView(navController: NavHostController) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp), // Añade padding en la parte inferior
+                .padding(bottom = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = { navController.popBackStack() }) {
@@ -86,7 +86,7 @@ fun PerfilView(navController: NavHostController) {
                     .size(32.dp)
                     .align(Alignment.BottomEnd)
                     .background(Color.White, CircleShape)
-                    .border(2.dp, Color.LightGray, CircleShape)
+                    .border(2.dp, Color.White, CircleShape)
                     .padding(4.dp)
                     .clickable {
                         navController.navigate("edit")
@@ -95,7 +95,7 @@ fun PerfilView(navController: NavHostController) {
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = "Cambiar imagen",
-                    tint = Color.Blue,
+                    tint = AppColor,
                     modifier = Modifier
                         .align(Alignment.Center)
                         .size(20.dp)

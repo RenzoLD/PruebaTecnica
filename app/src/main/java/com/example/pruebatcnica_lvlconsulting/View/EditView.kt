@@ -56,9 +56,8 @@ fun EditView(navController: NavHostController) {
             modifier = Modifier
                 .fillMaxHeight()
         ) {
-            Spacer(modifier = Modifier.height(48.dp)) // Espacio superior
+            Spacer(modifier = Modifier.height(128.dp)) // Aumenta el espacio superior
 
-            // Imagen circular
             Image(
                 painter = painterResource(id = R.drawable.profile),
                 contentDescription = "Profile Photo",
@@ -68,7 +67,6 @@ fun EditView(navController: NavHostController) {
                     .border(2.dp, Color.Black, CircleShape)
             )
 
-            // Espaciador para centrar la imagen y los botones
             Spacer(modifier = Modifier.height(24.dp))
 
             // Botones de acciones
@@ -81,19 +79,19 @@ fun EditView(navController: NavHostController) {
                 ActionButton(
                     icon = Icons.Default.Edit,
                     text = "Editar",
-                    onClick = { /* Acción de editar */ })
+                    onClick = { })
                 ActionButton(
                     icon = Icons.Default.PhotoCamera,
                     text = "Hacer foto",
-                    onClick = { /* Acción de hacer foto */ })
+                    onClick = { })
                 ActionButton(
                     icon = Icons.Default.PhotoLibrary,
                     text = "Galería",
-                    onClick = { /* Acción de galería */ })
+                    onClick = { })
                 ActionButton(
                     icon = Icons.Default.Delete,
                     text = "Eliminar",
-                    onClick = { /* Acción de eliminar */ })
+                    onClick = {  })
             }
         }
     }

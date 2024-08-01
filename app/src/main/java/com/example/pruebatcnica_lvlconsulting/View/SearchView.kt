@@ -130,14 +130,14 @@ fun SearchView(onDismiss: () -> Unit) {
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(8.dp) // Espacio entre los botones
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Button(
                             onClick = { /* Buscar */ },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(12.dp)), // Bordes redondeados
-                            colors = ButtonDefaults.buttonColors(containerColor = AppColor) // Color del botón
+                            colors = ButtonDefaults.buttonColors(containerColor = AppColor)
                         ) {
                             Text(
                                 text = "Buscar",
@@ -150,7 +150,7 @@ fun SearchView(onDismiss: () -> Unit) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(12.dp)), // Bordes redondeados
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.White) // Color del botón
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
                         ) {
                             Text(
                                 text = "Limpiar",

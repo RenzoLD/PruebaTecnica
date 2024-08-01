@@ -1,24 +1,20 @@
 package com.example.pruebatcnica_lvlconsulting.View
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.Alignment
@@ -40,12 +36,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.rememberAsyncImagePainter
+import com.example.pruebatcnica_lvlconsulting.Cards.TaskCard
 import com.example.pruebatcnica_lvlconsulting.R
 import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
 import com.example.pruebatcnica_lvlconsulting.ui.theme.fondoColor
 
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun HomeView(navController: NavHostController) {
     var showSearchDialog by remember { mutableStateOf(false) }
@@ -70,7 +66,6 @@ fun HomeView(navController: NavHostController) {
                 .padding(innerPadding)
                 .background(fondoColor)
         ) {
-            // Header
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -97,7 +92,7 @@ fun HomeView(navController: NavHostController) {
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
                         )
-                        Text(text = "CEO LVL Consulting", fontSize = 14.sp, color = Color.Gray)
+                        Text(text = "CEO LVL Consulting", fontSize = 14.sp, color = Color.Gray, fontWeight = FontWeight.Medium)
                     }
                 }
 
@@ -109,7 +104,7 @@ fun HomeView(navController: NavHostController) {
                     )
                 }
             }
-            NonClickableOutlinedTextField()
+            ClickableButton()
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
@@ -190,116 +185,49 @@ fun HomeView(navController: NavHostController) {
     }
 }
 
-@Composable
-fun TaskCard(title: String, status: String, state: String, iconRes: Int, backgroundRes: Int) {
-    Card(
-        modifier = Modifier
-            .width(180.dp)
-            .padding(8.dp),
-        shape = RoundedCornerShape(20.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp), // Sin elevación para el fondo
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent) // Fondo transparente
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(RoundedCornerShape(20.dp))
-        ) {
-            // Imagen de fondo
-            Image(
-                painter = painterResource(id = backgroundRes),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
-            )
-            Column(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxSize()
-                    .align(Alignment.CenterStart)
-            ) {
-                Image(
-                    painter = rememberAsyncImagePainter(model = iconRes),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .align(Alignment.Start)
-                        .size(40.dp)
-                )
-                Spacer(modifier = Modifier.height(8.dp)) // Espacio entre la imagen y el título
-                // Texto de la tarjeta
-                Column(
-                    horizontalAlignment = Alignment.Start
-                ) {
-                    Text(
-                        text = title,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Start,
-                        modifier = Modifier.padding(bottom = 4.dp) // Espacio debajo del título
-                    )
-                    Text(
-                        text = status,
-                        fontSize = 12.sp,
-                        color = Color.Gray,
-                        textAlign = TextAlign.Start,
-                        modifier = Modifier.padding(bottom = 4.dp) // Espacio debajo del status
-                    )
-                    Text(
-                        text = state,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = when (state) {
-                            "PLANIFICACIÓN" -> Color.Gray
-                            "EN CURSO" -> Color.Yellow
-                            "EN REVISIÓN" -> Color.Green
-                            "FINALIZADO" -> Color.Blue
-                            else -> Color.Gray
-                        },
-                        textAlign = TextAlign.Start // Cambiado a Start para alineación coherente
-                    )
-                }
-            }
-        }
-    }
-}
 
 @Composable
-fun NonClickableOutlinedTextField() {
-    var text by remember { mutableStateOf(TextFieldValue("")) }
+fun ClickableButton() {
     var showSearchDialog by remember { mutableStateOf(false) }
-    Box(
+
+    fun openSearchDialog() {
+        showSearchDialog = true
+    }
+
+    Button(
+        onClick = { openSearchDialog() },
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
-                showSearchDialog = true
-            }
+            .padding(vertical = 8.dp)
+            .height(48.dp)
+            .background(Color.White)
+            .border(1.dp, Color.Gray, RoundedCornerShape(20.dp)),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+        shape = RoundedCornerShape(20.dp),
     ) {
-        OutlinedTextField(
-            value = text,
-            onValueChange = { newText -> text = newText },
-            label = { Text("Buscar en tableros") },
-            modifier = Modifier.fillMaxWidth(),
-            readOnly = true,
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search Icon",
-                    tint = AppColor
-                )
-            },
-            trailingIcon = {
-                IconButton(onClick = {}) {
-                    Icon(
-                        imageVector = Icons.Default.FilterList,
-                        contentDescription = "Filter Icon",
-                        tint = AppColor
-                    )
-                }
-            },
-            shape = RoundedCornerShape(20.dp)
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search Icon",
+                tint = AppColor,
+                modifier = Modifier.padding(end = 8.dp) // Espacio entre el ícono y el texto
+            )
+            Text(
+                text = "Buscar en tableros",
+                color = Color.Gray
+            )
+            Spacer(modifier = Modifier.weight(1f)) // Espacio flexible para alinear el ícono y el texto
+            Icon(
+                imageVector = Icons.Default.FilterList,
+                contentDescription = "Filter Icon",
+                tint = AppColor
+            )
+        }
     }
+
     if (showSearchDialog) {
         SearchView(onDismiss = { showSearchDialog = false })
     }
