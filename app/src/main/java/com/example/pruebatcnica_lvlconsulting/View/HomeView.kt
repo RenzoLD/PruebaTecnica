@@ -1,5 +1,6 @@
 package com.example.pruebatcnica_lvlconsulting.View
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,6 +33,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -107,38 +109,9 @@ fun HomeView(navController: NavHostController) {
                     )
                 }
             }
-            @Composable
-            fun NonClickableOutlinedTextField() {
-                var text by remember { mutableStateOf(TextFieldValue("")) }
-                OutlinedTextField(
-                    value = text,
-                    onValueChange = { newText -> text = newText },
-                    label = { Text("Buscar en tableros") },
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    readOnly = true,
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Search Icon",
-                            tint = AppColor
-                        )
-                    },
-                    trailingIcon = {
-                        IconButton(onClick = {}) {
-                            Icon(
-                                imageVector = Icons.Default.FilterList,
-                                contentDescription = "Filter Icon",
-                                tint = AppColor
-                            )
-                        }
-                    },
-                    shape = RoundedCornerShape(20.dp)
-                )
-            }
+            NonClickableOutlinedTextField()
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Title
             Text(
                 text = "Tableros",
                 fontSize = 24.sp,
@@ -238,15 +211,14 @@ fun TaskCard(title: String, status: String, state: String, iconRes: Int, backgro
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxSize() // Asegúrate de que la imagen llene todo el Box
+                    .fillMaxSize()
             )
             Column(
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxSize()
-                    .align(Alignment.CenterStart) // Alinea la columna en el centro de la caja
+                    .align(Alignment.CenterStart)
             ) {
-                // Imagen en la parte superior en un círculo
                 Image(
                     painter = rememberAsyncImagePainter(model = iconRes),
                     contentDescription = null,
@@ -289,5 +261,46 @@ fun TaskCard(title: String, status: String, state: String, iconRes: Int, backgro
                 }
             }
         }
+    }
+}
+
+@Composable
+fun NonClickableOutlinedTextField() {
+    var text by remember { mutableStateOf(TextFieldValue("")) }
+    var showSearchDialog by remember { mutableStateOf(false) }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                showSearchDialog = true
+            }
+    ) {
+        OutlinedTextField(
+            value = text,
+            onValueChange = { newText -> text = newText },
+            label = { Text("Buscar en tableros") },
+            modifier = Modifier.fillMaxWidth(),
+            readOnly = true,
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Search Icon",
+                    tint = AppColor
+                )
+            },
+            trailingIcon = {
+                IconButton(onClick = {}) {
+                    Icon(
+                        imageVector = Icons.Default.FilterList,
+                        contentDescription = "Filter Icon",
+                        tint = AppColor
+                    )
+                }
+            },
+            shape = RoundedCornerShape(20.dp)
+        )
+    }
+    if (showSearchDialog) {
+        SearchView(onDismiss = { showSearchDialog = false })
     }
 }

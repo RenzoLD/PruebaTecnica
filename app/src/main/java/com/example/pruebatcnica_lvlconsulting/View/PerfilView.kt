@@ -32,12 +32,12 @@ import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
 
 @Composable
 fun PerfilView(navController: NavHostController) {
-    var nombres by remember { mutableStateOf("Miguel Ángel") }
-    var apellidos by remember { mutableStateOf("Liberato Carmín") }
-    var nombreEmpresa by remember { mutableStateOf("LVL Consulting") }
-    var cargo by remember { mutableStateOf("CEO LVL Consulting") }
-    var telefono by remember { mutableStateOf("+51 987654321") }
-    var correo by remember { mutableStateOf("miguelliberato@gmail.com") }
+    var nombres by remember { mutableStateOf("") }
+    var apellidos by remember { mutableStateOf("") }
+    var nombreEmpresa by remember { mutableStateOf("") }
+    var cargo by remember { mutableStateOf("") }
+    var telefono by remember { mutableStateOf("") }
+    var correo by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -81,7 +81,6 @@ fun PerfilView(navController: NavHostController) {
                     .fillMaxSize()
                     .clip(CircleShape)
             )
-            // Icono de editar
             Box(
                 modifier = Modifier
                     .size(32.dp)
@@ -99,7 +98,7 @@ fun PerfilView(navController: NavHostController) {
                     tint = Color.Blue,
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .size(20.dp) // Tamaño del ícono
+                        .size(20.dp)
                 )
             }
         }
