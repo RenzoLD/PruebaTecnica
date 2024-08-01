@@ -3,6 +3,7 @@ package com.example.pruebatcnica_lvlconsulting.View
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -10,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -32,6 +34,7 @@ import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
 fun PerfilView(navController: NavHostController) {
     var nombres by remember { mutableStateOf("Miguel Ángel") }
     var apellidos by remember { mutableStateOf("Liberato Carmín") }
+    var nombreEmpresa by remember { mutableStateOf("LVL Consulting") }
     var cargo by remember { mutableStateOf("CEO LVL Consulting") }
     var telefono by remember { mutableStateOf("+51 987654321") }
     var correo by remember { mutableStateOf("miguelliberato@gmail.com") }
@@ -67,12 +70,7 @@ fun PerfilView(navController: NavHostController) {
 
         Box(
             modifier = Modifier
-                .size(100.dp)
-                .clip(CircleShape)
-                .background(Color.Gray)
-                .clickable {
-                    navController.navigate("edit")
-                },
+                .size(100.dp),
             contentAlignment = Alignment.Center
         ) {
             Image(
@@ -81,24 +79,27 @@ fun PerfilView(navController: NavHostController) {
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxSize()
-                    .clip(CircleShape) // Opcional: Si quieres la imagen en forma de círculo
+                    .clip(CircleShape)
             )
             // Icono de editar
             Box(
                 modifier = Modifier
-                    .size(24.dp)
-                    .align(Alignment.BottomEnd) // Alinea al final en la parte inferior
-                    .padding(8.dp)
-                    .background(Color.Black.copy(alpha = 0.5f), CircleShape) // Fondo semitransparente
-                    .clickable {  }
+                    .size(32.dp)
+                    .align(Alignment.BottomEnd)
+                    .background(Color.White, CircleShape)
+                    .border(2.dp, Color.LightGray, CircleShape)
+                    .padding(4.dp)
+                    .clickable {
+                        navController.navigate("edit")
+                    }
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ed),
+                    imageVector = Icons.Default.Edit,
                     contentDescription = "Cambiar imagen",
-                    tint = Color.White,
+                    tint = Color.Blue,
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .size(16.dp) // Tamaño del ícono
+                        .size(20.dp) // Tamaño del ícono
                 )
             }
         }
@@ -107,14 +108,39 @@ fun PerfilView(navController: NavHostController) {
         // Campos de perfil
         ProfileTextField(label = "Nombres", value = nombres, onValueChange = { nombres = it })
         ProfileTextField(label = "Apellidos", value = apellidos, onValueChange = { apellidos = it })
-        ProfileTextField(label = "Cargo en la empresa", value = cargo, onValueChange = { cargo = it })
+        ProfileTextField(label = "Nombre de la empresa", value = nombreEmpresa, onValueChange = { nombreEmpresa = it })
+        ProfileTextField(
+            label = "Cargo en la empresa",
+            value = cargo,
+            onValueChange = { cargo = it })
         ProfileTextField(label = "Teléfono", value = telefono, onValueChange = { telefono = it })
-        ProfileTextField(label = "Correo electrónico", value = correo, onValueChange = { correo = it })
+        ProfileTextField(
+            label = "Correo electrónico",
+            value = correo,
+            onValueChange = { correo = it })
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = { /* Guardar cambios */ }) {
-            Text(text = "Guardar")
+        Button(
+            onClick = {
+                navController.navigate("edit")
+            },
+            colors = ButtonDefaults.buttonColors(containerColor = AppColor),
+            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp),
+            contentPadding = PaddingValues(
+                horizontal = 12.dp,
+                vertical = 12.dp
+            )
+        ) {
+            Text(
+                text = "Guardar",
+                color = MaterialTheme.colorScheme.onPrimary,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }
@@ -127,6 +153,7 @@ fun ProfileTextField(label: String, value: String, onValueChange: (String) -> Un
         label = { Text(text = label) },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(vertical = 8.dp),
+        shape = RoundedCornerShape(20.dp)
     )
 }

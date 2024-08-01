@@ -40,6 +40,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import coil.compose.rememberImagePainter
 import com.example.pruebatcnica_lvlconsulting.R
+import com.example.pruebatcnica_lvlconsulting.ui.theme.fondoColor
 
 @Composable
 fun EditView(navController: NavHostController) {
@@ -52,7 +53,8 @@ fun EditView(navController: NavHostController) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxHeight()
+            modifier = Modifier
+                .fillMaxHeight()
         ) {
             Spacer(modifier = Modifier.height(48.dp)) // Espacio superior
 
@@ -76,10 +78,22 @@ fun EditView(navController: NavHostController) {
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                ActionButton(icon = Icons.Default.Edit, text = "Editar", onClick = { /* Acción de editar */ })
-                ActionButton(icon = Icons.Default.PhotoCamera, text = "Hacer foto", onClick = { /* Acción de hacer foto */ })
-                ActionButton(icon = Icons.Default.PhotoLibrary, text = "Galería", onClick = { /* Acción de galería */ })
-                ActionButton(icon = Icons.Default.Delete, text = "Eliminar", onClick = { /* Acción de eliminar */ })
+                ActionButton(
+                    icon = Icons.Default.Edit,
+                    text = "Editar",
+                    onClick = { /* Acción de editar */ })
+                ActionButton(
+                    icon = Icons.Default.PhotoCamera,
+                    text = "Hacer foto",
+                    onClick = { /* Acción de hacer foto */ })
+                ActionButton(
+                    icon = Icons.Default.PhotoLibrary,
+                    text = "Galería",
+                    onClick = { /* Acción de galería */ })
+                ActionButton(
+                    icon = Icons.Default.Delete,
+                    text = "Eliminar",
+                    onClick = { /* Acción de eliminar */ })
             }
         }
     }

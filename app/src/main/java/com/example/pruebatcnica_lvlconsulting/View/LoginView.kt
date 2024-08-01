@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.pruebatcnica_lvlconsulting.R
 import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
+import com.example.pruebatcnica_lvlconsulting.ui.theme.fondoColor
 
 @Composable
 fun LoginView(navController: NavHostController) {
@@ -39,7 +40,8 @@ fun LoginView(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .background(fondoColor),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Center
     ) {
@@ -71,7 +73,7 @@ fun LoginView(navController: NavHostController) {
             fontWeight = FontWeight.Medium
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Hola, inicia sesión para continuar", fontSize = 18.sp)
+        Text(text = "Hola, inicia sesión para continuar", fontSize = 18.sp, color = Color.Gray)
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = email,
@@ -80,7 +82,6 @@ fun LoginView(navController: NavHostController) {
             placeholder = { Text("Usuario@gmail.com") },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp)
-
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
@@ -102,7 +103,6 @@ fun LoginView(navController: NavHostController) {
                     contentDescription = if (passwordVisible) "Hide password" else "Show password",
                     modifier = Modifier.clickable { passwordVisible = !passwordVisible },
                     tint = AppColor
-
                 )
             }
         )
@@ -133,11 +133,18 @@ fun LoginView(navController: NavHostController) {
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 32.dp)
-                .height(56.dp),
-            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
+                .height(48.dp),
+            contentPadding = PaddingValues(
+                horizontal = 12.dp,
+                vertical = 12.dp
+            )
         ) {
-            Text(text = "Iniciar Sesión")
+            Text(
+                text = "Iniciar Sesión",
+                color = MaterialTheme.colorScheme.onPrimary,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }

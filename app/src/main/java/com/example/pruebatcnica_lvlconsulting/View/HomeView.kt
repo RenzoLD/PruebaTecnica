@@ -28,13 +28,22 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.pointer.pointerInteropFilter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import coil.compose.rememberAsyncImagePainter
 import com.example.pruebatcnica_lvlconsulting.R
 import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
+import com.example.pruebatcnica_lvlconsulting.ui.theme.fondoColor
 
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun HomeView(navController: NavHostController) {
     var showSearchDialog by remember { mutableStateOf(false) }
@@ -57,6 +66,7 @@ fun HomeView(navController: NavHostController) {
                 .fillMaxSize()
                 .padding(16.dp)
                 .padding(innerPadding)
+                .background(fondoColor)
         ) {
             // Header
             Row(
@@ -89,7 +99,7 @@ fun HomeView(navController: NavHostController) {
                     }
                 }
 
-                IconButton(onClick = {  }) {
+                IconButton(onClick = { }) {
                     Image(
                         painter = painterResource(id = R.drawable.notis),
                         contentDescription = "Notifications",
@@ -97,33 +107,35 @@ fun HomeView(navController: NavHostController) {
                     )
                 }
             }
-
-            // Search Bar
-            OutlinedTextField(
-                value = "",
-                onValueChange = {},
-                label = { Text("Buscar en tableros") },
-                modifier = Modifier.fillMaxWidth(),
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = "Search Icon",
-                        tint = AppColor
-                    )
-                },
-                trailingIcon = {
-                    IconButton(onClick = {
-                        showSearchDialog = true
-                    }) {
+            @Composable
+            fun NonClickableOutlinedTextField() {
+                var text by remember { mutableStateOf(TextFieldValue("")) }
+                OutlinedTextField(
+                    value = text,
+                    onValueChange = { newText -> text = newText },
+                    label = { Text("Buscar en tableros") },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    readOnly = true,
+                    leadingIcon = {
                         Icon(
-                            imageVector = Icons.Default.FilterList,
-                            contentDescription = "Filter Icon",
+                            imageVector = Icons.Default.Search,
+                            contentDescription = "Search Icon",
                             tint = AppColor
                         )
-                    }
-                },
-                shape = RoundedCornerShape(20.dp)
-            )
+                    },
+                    trailingIcon = {
+                        IconButton(onClick = {}) {
+                            Icon(
+                                imageVector = Icons.Default.FilterList,
+                                contentDescription = "Filter Icon",
+                                tint = AppColor
+                            )
+                        }
+                    },
+                    shape = RoundedCornerShape(20.dp)
+                )
+            }
             Spacer(modifier = Modifier.height(16.dp))
 
             // Title
@@ -147,7 +159,8 @@ fun HomeView(navController: NavHostController) {
                         title = "Proyecto de App",
                         status = "ATA-1",
                         state = "PLANIFICACIÓN",
-                        iconRes = R.drawable.folder
+                        iconRes = R.drawable.folder,
+                        backgroundRes = R.drawable.fondo
                     )
                 }
                 item {
@@ -155,7 +168,8 @@ fun HomeView(navController: NavHostController) {
                         title = "Diseño de RR.SS.",
                         status = "PA-21",
                         state = "EN CURSO",
-                        iconRes = R.drawable.text
+                        iconRes = R.drawable.text,
+                        backgroundRes = R.drawable.fondo
                     )
                 }
                 item {
@@ -163,7 +177,8 @@ fun HomeView(navController: NavHostController) {
                         title = "Programación de...",
                         status = "PA-2",
                         state = "EN REVISIÓN",
-                        iconRes = R.drawable.briefcase
+                        iconRes = R.drawable.briefcase,
+                        backgroundRes = R.drawable.fondo
                     )
                 }
                 item {
@@ -171,7 +186,8 @@ fun HomeView(navController: NavHostController) {
                         title = "Control de calidad",
                         status = "ATA-1",
                         state = "FINALIZADO",
-                        iconRes = R.drawable.adversiting
+                        iconRes = R.drawable.adversiting,
+                        backgroundRes = R.drawable.fondo
                     )
                 }
                 item {
@@ -179,7 +195,8 @@ fun HomeView(navController: NavHostController) {
                         title = "Notificaciones de...",
                         status = "ATA-1",
                         state = "PLANIFICACIÓN",
-                        iconRes = R.drawable.email
+                        iconRes = R.drawable.email,
+                        backgroundRes = R.drawable.fondo
                     )
                 }
                 item {
@@ -187,7 +204,8 @@ fun HomeView(navController: NavHostController) {
                         title = "Pago de ventanilla",
                         status = "PA-2",
                         state = "EN REVISIÓN",
-                        iconRes = R.drawable.calendar
+                        iconRes = R.drawable.calendar,
+                        backgroundRes = R.drawable.fondo
                     )
                 }
             }
@@ -200,58 +218,75 @@ fun HomeView(navController: NavHostController) {
 }
 
 @Composable
-fun TaskCard(title: String, status: String, state: String, iconRes: Int) {
+fun TaskCard(title: String, status: String, state: String, iconRes: Int, backgroundRes: Int) {
     Card(
         modifier = Modifier
             .width(180.dp)
             .padding(8.dp),
         shape = RoundedCornerShape(20.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp), // Sin elevación para el fondo
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent) // Fondo transparente
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth()
+                .fillMaxSize()
+                .clip(RoundedCornerShape(20.dp))
         ) {
-            // Imagen en la parte superior
+            // Imagen de fondo
             Image(
-                painter = painterResource(id = iconRes),
+                painter = painterResource(id = backgroundRes),
                 contentDescription = null,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .align(Alignment.Start)
-                    .size(40.dp) // Tamaño de la imagen
-                    .clip(RoundedCornerShape(10.dp))
+                    .fillMaxSize() // Asegúrate de que la imagen llene todo el Box
             )
-            Spacer(modifier = Modifier.height(4.dp)) // Espacio entre la imagen y el título
-            // Texto de la tarjeta
             Column(
-                horizontalAlignment = Alignment.Start
+                modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxSize()
+                    .align(Alignment.CenterStart) // Alinea la columna en el centro de la caja
             ) {
-                Text(
-                    text = title,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Start
+                // Imagen en la parte superior en un círculo
+                Image(
+                    painter = rememberAsyncImagePainter(model = iconRes),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .align(Alignment.Start)
+                        .size(40.dp)
                 )
-                Text(
-                    text = status,
-                    fontSize = 12.sp,
-                    color = Color.Gray,
-                    textAlign = TextAlign.Start
-                )
-                Text(
-                    text = state,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = when (state) {
-                        "PLANIFICACIÓN" -> Color.Gray
-                        "EN CURSO" -> Color.Yellow
-                        "EN REVISIÓN" -> Color.Green
-                        "FINALIZADO" -> Color.Blue
-                        else -> Color.Gray
-                    },
-                    textAlign = TextAlign.Center
-                )
+                Spacer(modifier = Modifier.height(8.dp)) // Espacio entre la imagen y el título
+                // Texto de la tarjeta
+                Column(
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Text(
+                        text = title,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.padding(bottom = 4.dp) // Espacio debajo del título
+                    )
+                    Text(
+                        text = status,
+                        fontSize = 12.sp,
+                        color = Color.Gray,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.padding(bottom = 4.dp) // Espacio debajo del status
+                    )
+                    Text(
+                        text = state,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = when (state) {
+                            "PLANIFICACIÓN" -> Color.Gray
+                            "EN CURSO" -> Color.Yellow
+                            "EN REVISIÓN" -> Color.Green
+                            "FINALIZADO" -> Color.Blue
+                            else -> Color.Gray
+                        },
+                        textAlign = TextAlign.Start // Cambiado a Start para alineación coherente
+                    )
+                }
             }
         }
     }

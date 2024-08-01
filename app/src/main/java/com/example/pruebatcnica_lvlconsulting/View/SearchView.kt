@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
+import com.example.pruebatcnica_lvlconsulting.ui.theme.fondoColor
 
 
 @Composable
@@ -50,7 +51,8 @@ fun SearchView(onDismiss: () -> Unit) {
                 modifier = Modifier
                     .width(maxWidth)
                     .wrapContentHeight()
-                    .align(Alignment.Center),
+                    .align(Alignment.Center)
+                    .background(fondoColor),
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Column(

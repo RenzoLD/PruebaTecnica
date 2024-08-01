@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.pruebatcnica_lvlconsulting.R
 import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
+import com.example.pruebatcnica_lvlconsulting.ui.theme.fondoColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,21 +74,20 @@ fun NewProjectView(navController: NavHostController) {
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(16.dp)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .background(fondoColor),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // Row to align icon and button horizontally
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                // Box for project icon
                 Box(
                     modifier = Modifier
                         .size(64.dp)
                         .clip(CircleShape)
                         .background(Color.LightGray)
-                        .clickable { /* Cambiar icono */ },
+                        .clickable {  },
                     contentAlignment = Alignment.Center
                 ) {
                     Box(
@@ -98,6 +98,7 @@ fun NewProjectView(navController: NavHostController) {
                             .background(Color.White), // Set the background color if needed
                         contentAlignment = Alignment.Center
                     ) {
+
                         Image(
                             painter = painterResource(id = R.drawable.cloucomp),
                             contentDescription = "Icono del proyecto",
@@ -113,10 +114,11 @@ fun NewProjectView(navController: NavHostController) {
                         .align(Alignment.CenterVertically) // Align to center vertically
                         .padding(start = 16.dp) // Add padding for spacing
                 ) {
-                    Text(text = "Cambiar icono aleatorio",
+                    Text(
+                        text = "Cambiar icono aleatorio",
                         color = Color.Gray,
                         fontSize = 14.sp
-                        )
+                    )
                     Icon(
                         imageVector = Icons.Filled.Autorenew,
                         contentDescription = "Refresh",
@@ -131,7 +133,7 @@ fun NewProjectView(navController: NavHostController) {
                 label = { Text(text = "Nombre del proyecto") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp)
-                )
+            )
             OutlinedTextField(
                 value = descripcion,
                 onValueChange = { descripcion = it },
@@ -148,7 +150,11 @@ fun NewProjectView(navController: NavHostController) {
                 onValueChange = { fechaInicio = it },
                 label = { Text(text = "Fecha de inicio") },
                 trailingIcon = {
-                    Icon(Icons.Filled.CalendarToday, contentDescription = "Calendario", tint = AppColor)
+                    Icon(
+                        Icons.Filled.CalendarToday,
+                        contentDescription = "Calendario",
+                        tint = AppColor
+                    )
                 },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp)
@@ -158,7 +164,11 @@ fun NewProjectView(navController: NavHostController) {
                 onValueChange = { fechaFinalizacion = it },
                 label = { Text(text = "Fecha de finalización") },
                 trailingIcon = {
-                    Icon(Icons.Filled.CalendarToday, contentDescription = "Calendario", tint = AppColor)
+                    Icon(
+                        Icons.Filled.CalendarToday,
+                        contentDescription = "Calendario",
+                        tint = AppColor
+                    )
                 },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp)
@@ -168,11 +178,12 @@ fun NewProjectView(navController: NavHostController) {
                 horizontalArrangement = Arrangement.SpaceBetween, // Distribute space evenly
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "¿Compartir con otros miembros?",
+                Text(
+                    text = "¿Compartir con otros miembros?",
                     fontSize = 16.sp,
                     color = Color.Gray,
                     fontWeight = FontWeight.Bold
-                    )
+                )
                 Switch(
                     checked = compartirConOtros,
                     onCheckedChange = { compartirConOtros = it }
