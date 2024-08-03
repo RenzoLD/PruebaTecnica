@@ -1,8 +1,9 @@
-package com.example.pruebatcnica_lvlconsulting.Navigation
+package com.example.pruebatcnica_lvlconsulting.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import com.example.pruebatcnica_lvlconsulting.View.ApiResponseView
 import com.example.pruebatcnica_lvlconsulting.View.EditView
 import com.example.pruebatcnica_lvlconsulting.View.SearchView
 import com.example.pruebatcnica_lvlconsulting.View.HomeView
@@ -22,8 +23,11 @@ fun NavGraph() {
         composable("search") {
             SearchView(onDismiss = { navController.popBackStack() })
         }
+        composable("api") { ApiResponseView(navController) }
         composable("profile") { PerfilView(navController) }
         composable("edit") { EditView(navController) }
+        }
+
     }
-}
+
 

@@ -1,4 +1,4 @@
-package com.example.pruebatcnica_lvlconsulting.Cards
+package com.example.pruebatcnica_lvlconsulting.cards
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,6 +24,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
@@ -65,7 +66,6 @@ fun TaskCard(title: String, status: String, state: String, iconRes: Int, backgro
                         .align(Alignment.Start)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                // Texto de la tarjeta
                 Column(
                     horizontalAlignment = Alignment.Start,
                     modifier = Modifier.fillMaxWidth()
@@ -75,8 +75,11 @@ fun TaskCard(title: String, status: String, state: String, iconRes: Int, backgro
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Start,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.padding(bottom = 4.dp)
                     )
+
                     Text(
                         text = status,
                         fontSize = 12.sp,

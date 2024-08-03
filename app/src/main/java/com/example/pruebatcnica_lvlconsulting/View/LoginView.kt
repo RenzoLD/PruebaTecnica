@@ -121,7 +121,7 @@ fun LoginView(navController: NavHostController) {
                 Text(text = "Recordarme", fontWeight = FontWeight.Bold, fontSize = 14.sp)
             }
             TextButton(onClick = { }) {
-                Text(text = "Olvidé mi contraseña")
+                Text(text = "Olvidé mi contraseña", color = AppColor)
             }
         }
         Spacer(modifier = Modifier.height(16.dp))

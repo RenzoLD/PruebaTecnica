@@ -1,23 +1,26 @@
 # Prueba Técnica - LVL Consulting
 
-Esta es una prueba técnica para evaluar el desarrollo de aplicaciones móviles utilizando Jetpack Compose.
-
+Esta es una prueba técnica para evaluar el desarrollo de aplicaciones móviles utilizando Jetpack Compose. La aplicación permite gestionar proyectos y también consume una API de Google Places para obtener información sobre lugares.
 ## Introducción
 
-El proyecto consiste en una aplicación para gestionar proyectos. Incluye funcionalidades para login, visualizar la pantalla de inicio, añadir y editar proyectos, y editar el perfil del usuario. Esta prueba técnica está diseñada para evaluar el desarrollo de interfaces y la integración de funcionalidades básicas en una aplicación móvi
+El proyecto consiste en una aplicación para gestionar proyectos. Incluye funcionalidades para login, visualizar la pantalla de inicio, añadir y editar proyectos, y editar el perfil del usuario. La aplicación también integra la API de Google Places para proporcionar información detallada sobre lugares cercanos, incluyendo imágenes, nombres y direcciones.
 ## Características
 - **Splash**: Iniciando aplicación con un splashScreen que contiene el logo solicitado.
 - **Login**: Permite a los usuarios iniciar sesión en la aplicación..
 - **Home**: Muestra un resumen de los proyectos actuales y opciones de navegación.
 - **Nuevo Proyecto**: Muestra una pantalla que nos permite agregar un nuevo proyecto que irá dirigido al Home de la app.
 - **Búsqueda avanzada**: Permite buscar proyectos por diferentes criterios.
-- **Editar Perfil**:  Los usuarios pueden actualizar su información personal y foto de perfil..
+- **Editar Perfil**:  Los usuarios pueden actualizar su información personal y foto de perfil.
+- **Integración con Google Places API**:  Obtiene información sobre lugares cercanos, mostrando imágenes, nombres y direcciones.
 
 ## Tecnologías Utilizadas
 
 - **Lenguaje**: Kotlin
 - **Framework**: Jetpack Compose
-- **Herramientas de desarrollo**: Android Studio
+- **Arquitectura:**: Clean Architecture
+- **Inyección de Dependencias:**: Dagger Hilt
+- **Consumo de API:**: Retrofit
+- **Herramientas de desarrollo:**: Android Studio
 
 ## Requisitos
 

@@ -1,4 +1,4 @@
-package com.example.pruebatcnica_lvlconsulting.DropDown
+package com.example.pruebatcnica_lvlconsulting.drop_down
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box

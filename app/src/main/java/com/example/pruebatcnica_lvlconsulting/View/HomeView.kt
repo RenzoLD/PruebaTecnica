@@ -25,18 +25,8 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.pointer.pointerInteropFilter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import coil.compose.rememberAsyncImagePainter
-import com.example.pruebatcnica_lvlconsulting.Cards.TaskCard
+import com.example.pruebatcnica_lvlconsulting.cards.TaskCard
 import com.example.pruebatcnica_lvlconsulting.R
 import com.example.pruebatcnica_lvlconsulting.ui.theme.AppColor
 import com.example.pruebatcnica_lvlconsulting.ui.theme.fondoColor
@@ -65,55 +55,90 @@ fun HomeView(navController: NavHostController) {
                 .padding(16.dp)
                 .padding(innerPadding)
                 .background(fondoColor)
+        ) { Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.profile),
-                        contentDescription = "Profile Picture",
-                        modifier = Modifier
-                            .size(50.dp)
-                            .clickable {
-                                navController.navigate("profile")
-                            }
+                Image(
+                    painter = painterResource(id = R.drawable.profile),
+                    contentDescription = "Profile Picture",
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clickable {
+                            navController.navigate("profile")
+                        }
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Column {
+                    Text(
+                        text = "Miguel Liberato",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Column {
-                        Text(
-                            text = "Miguel Liberato",
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(text = "CEO LVL Consulting", fontSize = 14.sp, color = Color.Gray, fontWeight = FontWeight.Medium)
-                    }
-                }
-
-                IconButton(onClick = { }) {
-                    Image(
-                        painter = painterResource(id = R.drawable.notis),
-                        contentDescription = "Notifications",
-                        modifier = Modifier.size(20.dp)
+                    Text(
+                        text = "CEO LVL Consulting",
+                        fontSize = 14.sp,
+                        color = Color.Gray,
+                        fontWeight = FontWeight.Medium
                     )
                 }
             }
+
+            IconButton(onClick = {
+
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Notifications,
+                    contentDescription = "Notifications",
+                    modifier = Modifier.size(32.dp),
+                    tint = AppColor
+                )
+            }
+        }
+
             ClickableButton()
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = "Tableros",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "Tableros",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Medium
+                )
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "API",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    IconButton(onClick = {
+                        navController.navigate("api")
+
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Api,
+                            contentDescription = "Más opciones",
+                            tint = AppColor
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Cards
             LazyVerticalGrid(
